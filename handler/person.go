@@ -2,6 +2,7 @@ package handler
 
 import (
 	"api_persons_echo/model"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -66,6 +67,7 @@ func (p *person) update(e echo.Context) error {
 }
 
 func (p *person) delete(e echo.Context) error {
+	log.Println("entró")
 	ID, err := strconv.Atoi(e.Param("id"))
 	if err != nil {
 		response := newResponse(Error, "ID not valid", nil)

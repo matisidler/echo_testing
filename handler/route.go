@@ -12,10 +12,11 @@ func RoutePerson(e *echo.Echo, storage Storage) {
 	persons := e.Group("/persons")
 	persons.Use(middleware.Authentication)
 	persons.POST("", h.create)
-	persons.GET("", h.getAll)
+	persons.DELETE("/:id", h.delete)
 	persons.GET("/:id", h.getById)
 	persons.PUT("/:id", h.update)
-	persons.DELETE(":/id", h.delete)
+	persons.GET("", h.getAll)
+
 }
 
 func RouteLogin(e *echo.Echo, storage Storage) {

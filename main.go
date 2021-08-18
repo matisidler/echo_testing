@@ -7,17 +7,19 @@ import (
 	"log"
 
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 func main() {
-	err := authorization.LoadFiles("certificates/app.rsa", "certificates/app.rsa.pub")
+	err := authorization.LoadFiles("cmd/certificates/app.rsa", "cmd/certificates/app.rsa.pub")
 	if err != nil {
 		log.Fatal("certificates couldn't be loaded: ", err)
 	}
 	store := storage.NewMemory()
 
 	e := echo.New()
-
+	e.Use(middleware.Recover())
+	e.Use(middleware.Logger())
 	//	handler.RoutePerson(e, &store)
 	handler.RouteLogin(e, &store)
 	handler.RoutePerson(e, &store)
